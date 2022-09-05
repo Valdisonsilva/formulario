@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>PROMOÇÃO: VIAGEM DOS SONHOS</h1>
+
+    <h2>preencha o formulário corretamente e concorra a uma viagem de sua preferência</h2>
+    <form name="submit-to-google-sheet">
+
+    <div>
+        <input name="nome" type="text" placeholder="Nome" required>
+        <br>
+        <input name="email" type="text" placeholder="Email">
+        <br>
+        <input name="mensagem" type="text" placeholder="Mensagem">
+        <br>
+        <input name="telefone" type="number" placeholder="Telefone">
+        <br>
+        <input name="endereço" type="text" placeholder="Endereço">
+    </div>
+<br><br><p>Selecione a sua viagem</p>
+        <select name= "viagem">
+            <option value="cancun">cancun</option>
+            <option value="havaí">Havaí</option>
+            <option value="tailândia">tailândia</option>
+            <option value="japão">Paríz</option>
+             
+
+        </select>
+        <br><br>
+        <br>
+
+        <section>
+         <p>Vai ser acompanhado(a)? Se sim, marque quantas pessos</p>
+        <input name="brinde" type="checkbox" value="sim" id="brinde">
+        <label name="brinde" for="brinde">
+            Vou viajar sozinho
+        </label>
+<br>
+
+        <input name="brinde2" type="checkbox" value="sim" id="brinde2">
+        <label name="brinde2" for="brinde2">
+            vou viajar com acompanhante
+        </label>
+    <br><br>
+        <input name="vezes" type="checkbox" value="1a3" id="inlineCheckbox1">
+        <label name="vezes" for="inlineCheckbox1">1 a 3 pessoas</label>
+
+        <input name="vezes" type="checkbox" value="2a10" id="inlineCheckbox1">
+        <label name="vezes" for="inlineCheckbox1">3 a 5 pessoas</label>
+
+        <input name="vezes" type="checkbox" value=">10" id="inlineCheckbox1">
+        <label name="vezes" for="inlineCheckbox1">Acima de 5 pessoas</label>
+    </section>
+
+
+
+
+
+<br><br> <p>Você ja viajou para outros paises antes?</p>
+<br>
+         <input name="pesquisa-sim" type="radio" value="sim" id="pesquisa-sim">
+
+        <label name="pesquisa-sim" for="pesquisa-sim">
+            Já vigem para outros paises
+        </label>
+
+<br>
+        <input name="pesquisa-nao" type="radio" value="não" id="pesquisa-nao">
+        <label name="pesquisa-nao" for="pesquisa-nao">
+            Nunca viagei para outros paises
+        </label>
+
+<br><br>
+
+           <button type="submit">Cadastro</button>
+
+    </form>
+    <script>
+
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxuSKPtR-lg6jYHIRxGf5V0rKtOQT_Uic7Ls8UX84iYoPgTmZP7hiKNVWGiIGGiX9gV0A/exec'
+        const form = document.forms
+
+        ['submit-to-google-sheet']
+
+
+
+        form.addEventListener('submit', e => {
+
+            e.preventDefault()
+
+                fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+
+                .then(response => console.log('Sucess!',response))
+
+                .catch(error => console.error('Error!', error.message))
+
+                form.reset();
+
+        })
+
+    </script>
+      <!--
+    var sheetName = 'Sheet2'
+var scriptProp = PropertiesService.getScriptProperties()
+
+function intialSetup () {
+    var activeSpreadsheet = SpreadsheetApp.
+    getActiveSpreadsheet()
+}
+function doPost (e) {
+    var lock = LockService.getScriptLock()
+    lock.tryLock(10000)
+
+    try {
+        var doc = SpreadsheetApp.openById(scriptProp.getProperty
+        ('key'))
+        var sheet = doc.getSheetByName(sheetName)
+
+        var headers = sheet.getRange(1, 1, 1, sheet.
+        getLastColumn()).getValues()[0]
+        var nextRow = sheet.getLastRow() + 1
+
+        var newRow = headers.map(function(header) {
+            return header === 'timestamp' ? new Date() : e.
+            parameter[header]
+        })
+
+        sheet.getRange(nextRow, 1, 1, newRow.length).setValues
+        ([newRow])
+
+        return ContentService
+          .createTextOutput(JSON.stringify({ 'result':
+          'success', 'row': nextRow }))
+          .setMimeType(ContentService.MimeType.JSON)
+
+    }
+
+    catch (e) {
+        return ContentService
+           .createTextOutput(JSON.stringify({ 'result': 'error',
+           'error': e }))
+           .setMimetype(ContentService.Mime.JSON)
+
+      }
+
+      finally {
+        lock.releaseLock()
+    }
+}
+
+
+
+
+
+    -->
+    
+
+
+
+    
+    
+</body>
+</html>
